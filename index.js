@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
 const appSettings = {
     databaseURL: "https://library-database-f0001-default-rtdb.europe-west1.firebasedatabase.app/"
@@ -17,9 +17,11 @@ onValue(product, function(snapshot){
     clearShoppingListFromPreview();
 
     // Takes all the items from the database and stores it in array
-    let productArray = Object.values(snapshot.val());
+    let productArray = Object.entries(snapshot.val());
     // Displays items on the list
-    productArray.forEach(addNewItem);
+    productArray.forEach(([productID, productName]) => {
+        addNewItem(productName, productID);
+    });
 });
 
 
@@ -27,6 +29,9 @@ onValue(product, function(snapshot){
 addBtn.addEventListener('click', function(){
     const productName = inputEl.value;
 
+    // Checks entries
+    if (inputEl.value === '')
+        return;
     // pushes the value into the database
     push (product, productName);
     // Clears the input field text and focuses input field
@@ -39,7 +44,6 @@ addBtn.addEventListener('click', function(){
 
 // ==========[ FUNCTIONS ]========== //
 
-
 function clearShoppingListFromPreview(){
     shoppingList.innerHTML = "";
 }
@@ -47,13 +51,26 @@ function clearInput(){
     inputEl.value = "";
     inputEl.focus();
 }
-function addNewItem(productName){
+function addNewItem(productName, productID){
     const newListItem = document.createElement("li");
     newListItem.innerHTML = productName;
     newListItem.addEventListener('click', function(){
         this.remove();
+        removeProductFromDatabase(productName, productID);
+        // I am thinking of placing the remove from database code here, so when we press the item it gets
+        // removed from the database and also from the display div
     });
     shoppingList.appendChild(newListItem);
-    console.log(productName + " has been added to the database.");
+}
+function removeProductFromDatabase(productName, productID){
+    const productRef = ref(database, "product/" + productID);
+
+    remove(productRef)
+        .then(()=>{
+            console.log("Product: " + productName + " is safely removed from the database.")
+        })
+        .catch(()=>{
+            console.error("Error removing product from the database");
+        })
 }
 // ==========[ \FUNCTIONS ]========== //
