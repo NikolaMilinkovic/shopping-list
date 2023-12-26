@@ -4,6 +4,7 @@
     background-color: #F9F0ED;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 #landing-section{
     display: flex;
@@ -25,6 +26,7 @@
     user-select: none;
 }
 #input-product{
+    text-align: center;
     font-size: 18px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 22vw;
@@ -45,6 +47,10 @@ button{
     padding: 5px;
     border-width: 2px;
     cursor: pointer;
+    box-shadow: none;
+}
+button:hover {
+    background-color: #D26A7F;
 }
 #input-container{
     display: flex;
@@ -71,6 +77,9 @@ ul li{
     user-select: none;
     cursor: pointer;
     text-align: center;
+}
+li:hover {
+    background-color: #E3D7D0;
 }
 @media screen and (max-width: 600px) {
     #gif-landing{

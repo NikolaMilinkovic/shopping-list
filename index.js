@@ -13,25 +13,32 @@ const addBtn = document.getElementById("btn-add-product");
 const shoppingList = document.getElementById('shopping-list');
 
 onValue(product, function(snapshot){
-    // Removes all the items on the display list
-    clearShoppingListFromPreview();
+    if(snapshot.exists()){
+        // Removes all the items on the display list
+        clearShoppingListFromPreview();
 
-    // Takes all the items from the database and stores it in array
-    let productArray = Object.entries(snapshot.val());
-    // Displays items on the list
-    productArray.forEach(([productID, productName]) => {
-        addNewItem(productName, productID);
-    });
+        // Takes all the items from the database and stores it in array
+        let productArray = Object.entries(snapshot.val());
+        // Displays items on the list
+        productArray.forEach(([productID, productName]) => {
+            addNewItem(productName, productID);
+        });
+    }
+    else{
+        shoppingList.innerHTML = "No items here... yet";
+    }
+
+
 });
 
 
 
 addBtn.addEventListener('click', function(){
-    const productName = inputEl.value;
+    let productName = inputEl.value;
 
     // Checks entries
     if (inputEl.value === '')
-        return;
+        productName = inputEl.placeholder;
     // pushes the value into the database
     push (product, productName);
     // Clears the input field text and focuses input field
