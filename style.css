@@ -14,8 +14,8 @@
 }
 #gif-container{
     display: flex;
-    height: 50vh;
-    width: 50vh;
+    height: 40vh;
+    width: 40vh;
     margin: 1rem;
     align-items: center;
     justify-content: center;
