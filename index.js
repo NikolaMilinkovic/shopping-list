@@ -31,6 +31,7 @@ addBtn.addEventListener('click', function(){
 
     console.log(inputEl.value + " has been added to the database.");
     clearInput();
+    inputEl.focus();
 });
 
 function clearInput(){
