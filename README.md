@@ -1,4 +1,12 @@
-# shopping-list
-Small practice app made in order to familiarize with Firebase.
+![Example Image](/images/shopping-list.png)
 
-Live link: https://nikolamilinkovic.github.io/shopping-list/
+# Shopping List
+Small practice app made in order to familiarize with Firebase and use on my phone as a shopping list!
+
+[Live Demo](https://nikolamilinkovic.github.io/shopping-list/) ✨
+
+## Features
+- Firebase
+
+## 💻 Built With
+![javascript](https://skillicons.dev/icons?i=js,html,css,firebase&perline=10)
